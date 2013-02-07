@@ -92,7 +92,6 @@
     <Compile Include="Compiler_gui.Designer.cs">
       <DependentUpon>Compiler_gui.cs</DependentUpon>
     </Compile>
-    <Compile Include="Form1_Compiler.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="AboutBox.resx">
