@@ -195,7 +195,9 @@ namespace WindowsFormsAppCompile
                 textBox_Selected_compiler_path.Text = Read(KeyName);
 
                 if (Read(KeyName) == null)
-                { msgBox(war_2, "VC10"); }
+                {
+                    msgBox(war_2, "VC10");
+                }
             }
 
             if (comp == "VC10" && c == true)
@@ -204,7 +206,9 @@ namespace WindowsFormsAppCompile
                 textBox_Selected_compiler_path.Text = Read(KeyName);
 
                 if (Read(KeyName) == null)
-                { msgBox(war_1, "VC11"); }
+                {
+                    msgBox(war_1, "VC11");
+                }
             }
 
             if (comp == "VC11" && c == true)
@@ -214,7 +218,9 @@ namespace WindowsFormsAppCompile
                 textBox_Selected_compiler_path.Text = Read(KeyName);
 
                 if (Read(KeyName) == null)
-                { msgBox(war_2, "VC10"); }
+                {
+                    msgBox(war_2, "VC10");
+                }
             }
         }
 
@@ -230,8 +236,9 @@ namespace WindowsFormsAppCompile
             SaveSett("platform", build);
 
             if (build == "win64")
-            { build = "x64"; }
-
+            {
+                build = "x64";
+            }
             PlatformChange();
         }
 

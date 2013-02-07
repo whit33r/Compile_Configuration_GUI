@@ -1,0 +1,6 @@
+C:\Users\Ferenc\Desktop\Gitrepo\Compile_Configuration_GUI\bin\Debug\R2_Compiler_conf_gui.exe.config
+C:\Users\Ferenc\Desktop\Gitrepo\Compile_Configuration_GUI\obj\Debug\WindowsFormsCompiler.csprojResolveAssemblyReference.cache
+C:\Users\Ferenc\Desktop\Gitrepo\Compile_Configuration_GUI\obj\Debug\WindowsForms_compiler.AboutBox.resources
+C:\Users\Ferenc\Desktop\Gitrepo\Compile_Configuration_GUI\obj\Debug\WindowsFormsAppCompile.Compiler.resources
+C:\Users\Ferenc\Desktop\Gitrepo\Compile_Configuration_GUI\obj\Debug\WindowsForms_compiler.Properties.Resources.resources
+C:\Users\Ferenc\Desktop\Gitrepo\Compile_Configuration_GUI\obj\Debug\WindowsFormsCompiler.csproj.GenerateResource.Cache
