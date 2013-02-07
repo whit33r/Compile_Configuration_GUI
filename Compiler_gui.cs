@@ -30,29 +30,42 @@ namespace WindowsFormsAppCompile
         public Compiler()
         {
             InitializeComponent();
+
+
             string target1 = @"src\";
             string target2 = @"cmake\";
             if (Directory.Exists(target1) || (Directory.Exists(target2)))
             {
                 string target3 = @"src\bindings\ScriptDev2\sql_mr\";
                 string target4 = @"src\bindings\ScriptDev2\scripts";
-                if (!Directory.Exists(target3) || (!Directory.Exists(target4)))
+                if (Directory.Exists(target3) || (Directory.Exists(target4)))
+                {
+                }
+                else
                 {
                     MessageBox.Show("\\src\\bindings\\ScriptDev2 Folder is empty.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
             }
             else
-            { MessageBox.Show("Can't find MaNGOS files.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning); }
+            {
+                MessageBox.Show("Can't find MaNGOS files.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
 
             if (IntPtr.Size == 8)
-            { c = false; }
+            {
+                c = false;
+            }
             else
-            { c = true; }
+            {
+                c = true;
+            }
+
 
             for (int i = 1; i <= count; i++)
             {
                 comboBox_cpu_core.Items.Add(i);
-            }   comboBox_cpu_core.Text = Settings.Default["cpu"].ToString();      
+            }   comboBox_cpu_core.Text = Settings.Default["cpu"].ToString();
+            
         }
 
         private void msgBox(string msg, string cBox)
@@ -66,16 +79,24 @@ namespace WindowsFormsAppCompile
         public void PlatformChange()
         {
             if (build == "win32" && comp == "VC10")
-            { comp_n = "Visual Studio 10"; }
+            {
+                comp_n = "Visual Studio 10";
+            }
 
             else if (build == "x64" && comp == "VC10")
-            { comp_n = "Visual Studio 10 Win64"; }
+            {
+                comp_n = "Visual Studio 10 Win64";
+            }
 
             else if (build == "win32" && comp == "VC11")
-            { comp_n = "Visual Studio 11"; }
+            {
+                comp_n = "Visual Studio 11";
+            }
 
             else if (build == "x64" && comp == "VC11")
-            { comp_n = "Visual Studio 11 Win64"; }
+            {
+                comp_n = "Visual Studio 11 Win64";
+            }
         }
 
         public void Dialog(Boolean NewFolder)
@@ -85,7 +106,9 @@ namespace WindowsFormsAppCompile
             DialogResult result = this.folderBrowser.ShowDialog();
 
             if (result == DialogResult.OK && NewFolder == true)
-            { textBox_Selected_install_path.Text = this.folderBrowser.SelectedPath; }
+            {
+                textBox_Selected_install_path.Text = this.folderBrowser.SelectedPath;
+            }
             else { textBox_Selected_compiler_path.Text = this.folderBrowser.SelectedPath; }
         }
 
@@ -97,6 +120,7 @@ namespace WindowsFormsAppCompile
             ProcessInfo.CreateNoWindow = false;
             ProcessInfo.UseShellExecute = false;
             Process = Process.Start(ProcessInfo);
+
             if (closeProcess == true) { Process.Close(); }
         }
 
@@ -136,10 +160,15 @@ namespace WindowsFormsAppCompile
                     regKeyThree = regKeyFour.OpenSubKey(@"SOFTWARE\Microsoft\VisualStudio\11.0\");
                     return regKeyFour.GetValue("ShellFolder").ToString();
                 }
-                else { return null; }
+                else
+                {
+                    return null;
+                }
             }
             catch (Exception)
-            { return null; }
+            {
+                return null;
+            }
         }
 
         private void button_compile_Click(object sender, EventArgs e)
@@ -160,10 +189,14 @@ namespace WindowsFormsAppCompile
         }
 
         public void button_change_two_Click(object sender, EventArgs e)
-        { Dialog(true); }
+        {
+            Dialog(true);
+        }
 
         public void button_change_one_Click(object sender, EventArgs e)
-        { Dialog(false); }
+        {
+            Dialog(false);
+        }
 
         private void button_help_Click(object sender, EventArgs e)
         {
@@ -181,7 +214,6 @@ namespace WindowsFormsAppCompile
             {
                 a = true;
                 textBox_Selected_compiler_path.Text = Read(KeyName);
-
                 if (Read(KeyName) == null)
                 {
                     msgBox(war_1, "VC11");
@@ -193,7 +225,6 @@ namespace WindowsFormsAppCompile
             {
                 a = false;
                 textBox_Selected_compiler_path.Text = Read(KeyName);
-
                 if (Read(KeyName) == null)
                 {
                     msgBox(war_2, "VC10");
@@ -204,7 +235,6 @@ namespace WindowsFormsAppCompile
             {
                 b = true;
                 textBox_Selected_compiler_path.Text = Read(KeyName);
-
                 if (Read(KeyName) == null)
                 {
                     msgBox(war_1, "VC11");
@@ -216,7 +246,6 @@ namespace WindowsFormsAppCompile
                 b = false;
                 Read(KeyName);
                 textBox_Selected_compiler_path.Text = Read(KeyName);
-
                 if (Read(KeyName) == null)
                 {
                     msgBox(war_2, "VC10");
@@ -234,7 +263,6 @@ namespace WindowsFormsAppCompile
         {
             build = comboBox_build_platform.Items[comboBox_build_platform.SelectedIndex].ToString();
             SaveSett("platform", build);
-
             if (build == "win64")
             {
                 build = "x64";
