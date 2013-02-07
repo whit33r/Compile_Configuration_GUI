@@ -1,0 +1,18 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="WindowsForms_compiler.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="platform" Type="System.String" Scope="User">
+      <Value Profile="(Default)">win32</Value>
+    </Setting>
+    <Setting Name="compiler" Type="System.String" Scope="User">
+      <Value Profile="(Default)">VC10</Value>
+    </Setting>
+    <Setting Name="cpu" Type="System.String" Scope="User">
+      <Value Profile="(Default)">1</Value>
+    </Setting>
+    <Setting Name="installPath" Type="System.String" Scope="User">
+      <Value Profile="(Default)">C:\MaNGOS</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>
