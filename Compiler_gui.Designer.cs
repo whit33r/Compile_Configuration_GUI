@@ -227,6 +227,7 @@
             this.Name = "Compiler";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "R2 Compiler Configuration GUI";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Compiler_FormClosing);
             this.Load += new System.EventHandler(this.Compiler_Load);
             this.groupBox_conf.ResumeLayout(false);
             this.groupBox_conf.PerformLayout();

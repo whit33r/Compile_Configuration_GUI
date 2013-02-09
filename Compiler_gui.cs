@@ -16,13 +16,8 @@ namespace WindowsFormsAppCompile
 {
     public partial class Compiler : Form
     {
-        bool a;
-        bool b;
-        bool c;
-        string core;
-        string build;
-        string comp;
-        string comp_n;
+        bool a, b;
+        string core, build, comp, comp_n;
         int count = Environment.ProcessorCount;
         string war_1 = "Visual Studio 10 is not installed on your computer.";
         string war_2 = "Visual Studio 11 is not installed on your computer.";
@@ -45,9 +40,9 @@ namespace WindowsFormsAppCompile
             { MessageBox.Show("Can't find MaNGOS files.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning); }
 
             if (IntPtr.Size == 8)
-            { c = false; }
+            { b = false; }
             else
-            { c = true; }
+            { b = true; }
 
             for (int i = 1; i <= count; i++)
             {
@@ -103,7 +98,6 @@ namespace WindowsFormsAppCompile
         public void SaveSett(string name, string data)
         {
             Settings.Default[name] = data;
-            Settings.Default.Save();
         }
 
         public string Read(string KeyName)
@@ -115,23 +109,23 @@ namespace WindowsFormsAppCompile
                 RegistryKey regKeyThree = Registry.LocalMachine;
                 RegistryKey regKeyFour = Registry.LocalMachine;
 
-                if (c == false && a == true && regKeyOne != null)
+                if (b == false && a == true && regKeyOne != null)
                 {
                     regKeyOne = regKeyOne.OpenSubKey(@"SOFTWARE\Wow6432Node\Microsoft\VisualStudio\10.0\");
                     return regKeyOne.GetValue("ShellFolder").ToString();
                 }
 
-                else if (c == false && a == false && regKeyOne != null)
+                else if (b == false && a == false && regKeyOne != null)
                 {
                     regKeyTwo = regKeyTwo.OpenSubKey(@"SOFTWARE\Wow6432Node\Microsoft\VisualStudio\11.0\");
                     return regKeyTwo.GetValue("ShellFolder").ToString();
                 }
-                else if (c == true && a == true && regKeyOne != null)
+                else if (b == true && a == true && regKeyOne != null)
                 {
                     regKeyThree = regKeyThree.OpenSubKey(@"SOFTWARE\Microsoft\VisualStudio\10.0\");
                     return regKeyThree.GetValue("ShellFolder").ToString();
                 }
-                else if (c == true && a == false && regKeyOne != null)
+                else if (b == true && a == false && regKeyOne != null)
                 {
                     regKeyThree = regKeyFour.OpenSubKey(@"SOFTWARE\Microsoft\VisualStudio\11.0\");
                     return regKeyFour.GetValue("ShellFolder").ToString();
@@ -177,50 +171,41 @@ namespace WindowsFormsAppCompile
             SaveSett("compiler", comp);
             PlatformChange();
 
-            if (comp == "VC10" && c == false)
+            if (comp == "VC10" && b == false)
             {
                 a = true;
                 textBox_Selected_compiler_path.Text = Read(KeyName);
 
                 if (Read(KeyName) == null)
-                {
-                    msgBox(war_1, "VC11");
-                }
+                { msgBox(war_1, "VC11"); }
             }
 
-
-            if (comp == "VC11" && c == false)
+            if (comp == "VC11" && b == false)
             {
                 a = false;
                 textBox_Selected_compiler_path.Text = Read(KeyName);
 
                 if (Read(KeyName) == null)
-                {
-                    msgBox(war_2, "VC10");
-                }
+                { msgBox(war_2, "VC10"); ;}
             }
 
-            if (comp == "VC10" && c == true)
+            if (comp == "VC10" && b == true)
             {
                 b = true;
                 textBox_Selected_compiler_path.Text = Read(KeyName);
 
                 if (Read(KeyName) == null)
-                {
-                    msgBox(war_1, "VC11");
-                }
+                { msgBox(war_1, "VC11"); }
             }
 
-            if (comp == "VC11" && c == true)
+            if (comp == "VC11" && b == true)
             {
                 b = false;
                 Read(KeyName);
                 textBox_Selected_compiler_path.Text = Read(KeyName);
 
                 if (Read(KeyName) == null)
-                {
-                    msgBox(war_2, "VC10");
-                }
+                { msgBox(war_2, "VC10"); }
             }
         }
 
@@ -264,5 +249,10 @@ namespace WindowsFormsAppCompile
         public string KeyName { get; set; }
 
         public RegistryKey baseRegistryKey { get; set; }
+
+        private void Compiler_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            Settings.Default.Save();
+        }
     }
 }
