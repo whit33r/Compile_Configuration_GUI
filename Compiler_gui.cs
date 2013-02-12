@@ -18,7 +18,7 @@ namespace WindowsFormsAppCompile
     {
         bool a, b;
         string core, build, comp, comp_n;
-        int count = Environment.ProcessorCount;
+        int count = Environment.ProcessorCount, controll;
         string war_1 = "Visual Studio 10 is not installed on your computer.";
         string war_2 = "Visual Studio 11 is not installed on your computer.";
         
@@ -127,7 +127,7 @@ namespace WindowsFormsAppCompile
                 }
                 else if (b == true && a == false && regKeyOne != null)
                 {
-                    regKeyThree = regKeyFour.OpenSubKey(@"SOFTWARE\Microsoft\VisualStudio\11.0\");
+                    regKeyThree = regKeyFour.OpenSubKey(@"SOFTWARE\Microsoft\VisualStudio\\11.0\");
                     return regKeyFour.GetValue("ShellFolder").ToString();
                 }
                 else { return null; }
@@ -167,45 +167,48 @@ namespace WindowsFormsAppCompile
 
         private void comboBox_com_vc_SelectedIndexChanged(object sender, EventArgs e)
         {
-            comp = comboBox_com_vc.Items[comboBox_com_vc.SelectedIndex].ToString();
-            SaveSett("compiler", comp);
-            PlatformChange();
-
-            if (comp == "VC10" && b == false)
+            if (controll < 2)
             {
-                a = true;
-                textBox_Selected_compiler_path.Text = Read(KeyName);
+                comp = comboBox_com_vc.Items[comboBox_com_vc.SelectedIndex].ToString();
+                SaveSett("compiler", comp);
+                PlatformChange();
 
-                if (Read(KeyName) == null)
-                { msgBox(war_1, "VC11"); }
-            }
+                if (comp == "VC10" && b == false)
+                {
+                    a = true;
+                    textBox_Selected_compiler_path.Text = Read(KeyName);
 
-            if (comp == "VC11" && b == false)
-            {
-                a = false;
-                textBox_Selected_compiler_path.Text = Read(KeyName);
+                    if (Read(KeyName) == null)
+                    { controll++; msgBox(war_1, "VC11"); }
+                }
 
-                if (Read(KeyName) == null)
-                { msgBox(war_2, "VC10"); ;}
-            }
+                if (comp == "VC11" && b == false)
+                {
+                    a = false;
+                    textBox_Selected_compiler_path.Text = Read(KeyName);
 
-            if (comp == "VC10" && b == true)
-            {
-                b = true;
-                textBox_Selected_compiler_path.Text = Read(KeyName);
+                    if (Read(KeyName) == null)
+                    { controll++; msgBox(war_2, "VC10"); }
+                }
 
-                if (Read(KeyName) == null)
-                { msgBox(war_1, "VC11"); }
-            }
+                if (comp == "VC10" && b == true)
+                {
+                    b = true;
+                    textBox_Selected_compiler_path.Text = Read(KeyName);
 
-            if (comp == "VC11" && b == true)
-            {
-                b = false;
-                Read(KeyName);
-                textBox_Selected_compiler_path.Text = Read(KeyName);
+                    if (Read(KeyName) == null)
+                    { controll++; msgBox(war_1, "VC11"); }
+                }
 
-                if (Read(KeyName) == null)
-                { msgBox(war_2, "VC10"); }
+                if (comp == "VC11" && b == true)
+                {
+                    b = false;
+                    Read(KeyName);
+                    textBox_Selected_compiler_path.Text = Read(KeyName);
+
+                    if (Read(KeyName) == null)
+                    { controll++; msgBox(war_2, "VC10"); }
+                }
             }
         }
 
