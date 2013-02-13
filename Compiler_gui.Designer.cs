@@ -1,4 +1,4 @@
-﻿namespace WindowsFormsAppCompile
+﻿namespace WindowsForms_compiler
 {
     partial class Compiler
     {

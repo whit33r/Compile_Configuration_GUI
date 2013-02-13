@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
-using WindowsFormsAppCompile;
+using WindowsForms_compiler;
 
 namespace WindowsFormsApplication32
 {

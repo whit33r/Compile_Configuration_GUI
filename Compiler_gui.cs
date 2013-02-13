@@ -1,56 +1,52 @@
-﻿using Microsoft.Win32;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
+﻿using System;
 using System.Diagnostics;
-using System.Drawing;
 using System.IO;
-using System.Runtime.InteropServices;
-using System.Text;
 using System.Windows.Forms;
-using WindowsForms_compiler;
+using Microsoft.Win32;
 using WindowsForms_compiler.Properties;
 
-namespace WindowsFormsAppCompile
+namespace WindowsForms_compiler
 {
     public partial class Compiler : Form
     {
-        bool a, b;
-        string core, build, comp, comp_n;
-        int count = Environment.ProcessorCount, controll;
-        string war_1 = "Visual Studio 10 is not installed on your computer.";
-        string war_2 = "Visual Studio 11 is not installed on your computer.";
-        
+        private readonly int count = Environment.ProcessorCount;
+        private bool a, b;
+        private string build, comp, comp_n;
+        private int controll;
+        private string core;
+        private const string War1 = "Visual Studio 10 is not installed on your computer.";
+        private const string War2 = "Visual Studio 11 is not installed on your computer.";
+
         public Compiler()
         {
             InitializeComponent();
-            string target1 = @"src\";
-            string target2 = @"cmake\";
+            const string target1 = @"src\";
+            const string target2 = @"cmake\";
             if (Directory.Exists(target1) || (Directory.Exists(target2)))
             {
-                string target3 = @"src\bindings\ScriptDev2\sql_mr\";
-                string target4 = @"src\bindings\ScriptDev2\scripts";
+                const string target3 = @"src\bindings\ScriptDev2\sql_mr\";
+                const string target4 = @"src\bindings\ScriptDev2\scripts";
                 if (!Directory.Exists(target3) || (!Directory.Exists(target4)))
                 {
-                    MessageBox.Show("\\src\\bindings\\ScriptDev2 Folder is empty.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    MessageBox.Show("\\src\\bindings\\ScriptDev2 Folder is empty.", "Warning", MessageBoxButtons.OK,
+                                    MessageBoxIcon.Warning);
                 }
             }
             else
-            { MessageBox.Show("Can't find MaNGOS files.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning); }
+            {
+                MessageBox.Show("Can't find MaNGOS files.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
 
-            if (IntPtr.Size == 8)
-            { b = false; }
-            else
-            { b = true; }
+            b = IntPtr.Size != 8;
 
             for (int i = 1; i <= count; i++)
             {
                 comboBox_cpu_core.Items.Add(i);
-            }   comboBox_cpu_core.Text = Settings.Default["cpu"].ToString();      
+            }
+            comboBox_cpu_core.Text = Settings.Default["cpu"].ToString();
         }
 
-        private void msgBox(string msg, string cBox)
+        private void MsgBox(string msg, string cBox)
         {
             MessageBox.Show(msg, "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             comboBox_com_vc.Items.Clear();
@@ -58,49 +54,65 @@ namespace WindowsFormsAppCompile
             comboBox_com_vc.Text = cBox;
         }
 
-        public void PlatformChange()
+        private void PlatformChange()
         {
             if (build == "win32" && comp == "VC10")
-            { comp_n = "Visual Studio 10"; }
+            {
+                comp_n = "Visual Studio 10";
+            }
 
             else if (build == "x64" && comp == "VC10")
-            { comp_n = "Visual Studio 10 Win64"; }
+            {
+                comp_n = "Visual Studio 10 Win64";
+            }
 
             else if (build == "win32" && comp == "VC11")
-            { comp_n = "Visual Studio 11"; }
+            {
+                comp_n = "Visual Studio 11";
+            }
 
             else if (build == "x64" && comp == "VC11")
-            { comp_n = "Visual Studio 11 Win64"; }
+            {
+                comp_n = "Visual Studio 11 Win64";
+            }
         }
 
-        public void Dialog(Boolean NewFolder)
+        private void Dialog(Boolean newFolder)
         {
-            this.folderBrowser.RootFolder = System.Environment.SpecialFolder.MyComputer;
-            this.folderBrowser.ShowNewFolderButton = NewFolder;
-            DialogResult result = this.folderBrowser.ShowDialog();
+            folderBrowser.RootFolder = Environment.SpecialFolder.MyComputer;
+            folderBrowser.ShowNewFolderButton = newFolder;
+            DialogResult result = folderBrowser.ShowDialog();
 
-            if (result == DialogResult.OK && NewFolder == true)
-            { textBox_Selected_install_path.Text = this.folderBrowser.SelectedPath; }
-            else { textBox_Selected_compiler_path.Text = this.folderBrowser.SelectedPath; }
+            if (result == DialogResult.OK && newFolder)
+            {
+                textBox_Selected_install_path.Text = folderBrowser.SelectedPath;
+            }
+            else
+            {
+                textBox_Selected_compiler_path.Text = folderBrowser.SelectedPath;
+            }
         }
 
-        private void ExecComm(string Command, Boolean closeProcess)
+        private void ExecComm(string cmdS, Boolean closeProcess)
         {
-            ProcessStartInfo ProcessInfo;
-            Process Process;
-            ProcessInfo = new ProcessStartInfo("cmd.exe", "/C " + Command);
-            ProcessInfo.CreateNoWindow = false;
-            ProcessInfo.UseShellExecute = false;
-            Process = Process.Start(ProcessInfo);
-            if (closeProcess == true) { Process.Close(); }
+            var processInfo = new ProcessStartInfo("cmd.exe", "/C " + cmdS)
+                {
+                    CreateNoWindow = false,
+                    UseShellExecute = false
+                };
+            Process process = Process.Start(processInfo);
+            if (closeProcess)
+            {
+                process.Close();
+            }
         }
 
-        public void SaveSett(string name, string data)
+        private void SaveSett(string name, string data)
         {
             Settings.Default[name] = data;
         }
 
-        public string Read(string KeyName)
+        private string Read()
         {
             try
             {
@@ -109,60 +121,81 @@ namespace WindowsFormsAppCompile
                 RegistryKey regKeyThree = Registry.LocalMachine;
                 RegistryKey regKeyFour = Registry.LocalMachine;
 
-                if (b == false && a == true && regKeyOne != null)
+                if (b == false && a && regKeyOne != null)
                 {
                     regKeyOne = regKeyOne.OpenSubKey(@"SOFTWARE\Wow6432Node\Microsoft\VisualStudio\10.0\");
-                    return regKeyOne.GetValue("ShellFolder").ToString();
+                    if (regKeyOne != null) return regKeyOne.GetValue("ShellFolder").ToString();
                 }
-
-                else if (b == false && a == false && regKeyOne != null)
+                if (b == false && a == false && regKeyOne != null)
                 {
                     regKeyTwo = regKeyTwo.OpenSubKey(@"SOFTWARE\Wow6432Node\Microsoft\VisualStudio\11.0\");
-                    return regKeyTwo.GetValue("ShellFolder").ToString();
+                    if (regKeyTwo != null) return regKeyTwo.GetValue("ShellFolder").ToString();
                 }
-                else if (b == true && a == true && regKeyOne != null)
+                if (b && a && regKeyOne != null)
                 {
                     regKeyThree = regKeyThree.OpenSubKey(@"SOFTWARE\Microsoft\VisualStudio\10.0\");
-                    return regKeyThree.GetValue("ShellFolder").ToString();
+                    if (regKeyThree != null) return regKeyThree.GetValue("ShellFolder").ToString();
                 }
-                else if (b == true && a == false && regKeyOne != null)
+                if (b && a == false && regKeyOne != null)
                 {
-                    regKeyThree = regKeyFour.OpenSubKey(@"SOFTWARE\Microsoft\VisualStudio\\11.0\");
+                    regKeyFour.OpenSubKey(@"SOFTWARE\Microsoft\VisualStudio\\11.0\");
                     return regKeyFour.GetValue("ShellFolder").ToString();
                 }
-                else { return null; }
+                return null;
             }
             catch (Exception)
-            { return null; }
+            {
+                return null;
+            }
         }
 
         private void button_compile_Click(object sender, EventArgs e)
         {
-            string cflag = "/DWIN32 /D_WINDOWS /W3 /Zm1000 /EHsc /GR";
+            const string cflag = "/DWIN32 /D_WINDOWS /W3 /Zm1000 /EHsc /GR";
 
             if (build == "win32")
             {
-                ExecComm("@echo off & rd /s/q build & mkdir build & cd build & mkdir \"" + textBox_Selected_install_path.Text + "\" & cmake -G \"" + comp_n + "\" -DPCH=1 -DCMAKE_CXX_COMPILER=\"" + textBox_Selected_compiler_path.Text + "\" -DCMAKE_CXX_FLAGS=\"" + cflag + "\" -DCMAKE_C_FLAGS=\"" + cflag + "\" -DCMAKE_CXX_COMPILER=\"" + textBox_Selected_compiler_path.Text + "\" -DCMAKE_INSTALL_PREFIX=\"" + textBox_Selected_install_path.Text + "\" -DUSE_FASTMM_MALLOC=1 -DUSE_STD_MALLOC=0 -DUSE_TBB_MALLOC=0 .. & call \"" + textBox_Selected_compiler_path.Text + "VC\\vcvarsall.bat\" & MSBuild INSTALL.vcxproj /m:" + core + " /t:Rebuild /p:Configuration=Release;Platform=" + build + " & cd .. & Pause > nul", false);
+                ExecComm(
+                    "@echo off & rd /s/q build & mkdir build & cd build & mkdir \"" + textBox_Selected_install_path.Text +
+                    "\" & cmake -G \"" + comp_n + "\" -DPCH=1 -DCMAKE_CXX_COMPILER=\"" +
+                    textBox_Selected_compiler_path.Text + "\" -DCMAKE_CXX_FLAGS=\"" + cflag + "\" -DCMAKE_C_FLAGS=\"" +
+                    cflag + "\" -DCMAKE_CXX_COMPILER=\"" + textBox_Selected_compiler_path.Text +
+                    "\" -DCMAKE_INSTALL_PREFIX=\"" + textBox_Selected_install_path.Text +
+                    "\" -DUSE_FASTMM_MALLOC=1 -DUSE_STD_MALLOC=0 -DUSE_TBB_MALLOC=0 .. & call \"" +
+                    textBox_Selected_compiler_path.Text + "VC\\vcvarsall.bat\" & MSBuild INSTALL.vcxproj /m:" + core +
+                    " /t:Rebuild /p:Configuration=Release;Platform=" + build + " & cd .. & Pause > nul", false);
                 Application.Exit();
             }
 
             if (build == "x64")
             {
-                ExecComm("@echo off & rd /s/q build & mkdir build & cd build & mkdir \"" + textBox_Selected_install_path.Text + "\" & cmake -G \"" + comp_n + "\" -DPCH=1 -DPLATFORM=X64 -DCMAKE_CXX_COMPILER=\"" + textBox_Selected_compiler_path.Text + "\" -DCMAKE_CXX_FLAGS=\"" + cflag + "\" -DCMAKE_C_FLAGS=\"" + cflag + "\" -DCMAKE_CXX_COMPILER=\"" + textBox_Selected_compiler_path.Text + "\" -DCMAKE_INSTALL_PREFIX=\"" + textBox_Selected_install_path.Text + "\" -DUSE_FASTMM_MALLOC=1 -DUSE_STD_MALLOC=0 -DUSE_TBB_MALLOC=0 .. & call \"" + textBox_Selected_compiler_path.Text + "VC\\vcvarsall.bat\" & MSBuild INSTALL.vcxproj /m:" + core + " /t:Rebuild /p:Configuration=Release;Platform=" + build + " & cd .. & Pause > nul", false);
+                ExecComm(
+                    "@echo off & rd /s/q build & mkdir build & cd build & mkdir \"" + textBox_Selected_install_path.Text +
+                    "\" & cmake -G \"" + comp_n + "\" -DPCH=1 -DPLATFORM=X64 -DCMAKE_CXX_COMPILER=\"" +
+                    textBox_Selected_compiler_path.Text + "\" -DCMAKE_CXX_FLAGS=\"" + cflag + "\" -DCMAKE_C_FLAGS=\"" +
+                    cflag + "\" -DCMAKE_CXX_COMPILER=\"" + textBox_Selected_compiler_path.Text +
+                    "\" -DCMAKE_INSTALL_PREFIX=\"" + textBox_Selected_install_path.Text +
+                    "\" -DUSE_FASTMM_MALLOC=1 -DUSE_STD_MALLOC=0 -DUSE_TBB_MALLOC=0 .. & call \"" +
+                    textBox_Selected_compiler_path.Text + "VC\\vcvarsall.bat\" & MSBuild INSTALL.vcxproj /m:" + core +
+                    " /t:Rebuild /p:Configuration=Release;Platform=" + build + " & cd .. & Pause > nul", false);
                 Application.Exit();
             }
         }
 
-        public void button_change_two_Click(object sender, EventArgs e)
-        { Dialog(true); }
+        private void button_change_two_Click(object sender, EventArgs e)
+        {
+            Dialog(true);
+        }
 
-        public void button_change_one_Click(object sender, EventArgs e)
-        { Dialog(false); }
+        private void button_change_one_Click(object sender, EventArgs e)
+        {
+            Dialog(false);
+        }
 
         private void button_help_Click(object sender, EventArgs e)
         {
-            AboutBox a = new AboutBox();
-            a.Show();
+            var aboutBox = new AboutBox();
+            aboutBox.Show();
         }
 
         private void comboBox_com_vc_SelectedIndexChanged(object sender, EventArgs e)
@@ -176,38 +209,50 @@ namespace WindowsFormsAppCompile
                 if (comp == "VC10" && b == false)
                 {
                     a = true;
-                    textBox_Selected_compiler_path.Text = Read(KeyName);
+                    textBox_Selected_compiler_path.Text = Read();
 
-                    if (Read(KeyName) == null)
-                    { controll++; msgBox(war_1, "VC11"); }
+                    if (Read() == null)
+                    {
+                        controll++;
+                        MsgBox(War1, "VC11");
+                    }
                 }
 
                 if (comp == "VC11" && b == false)
                 {
                     a = false;
-                    textBox_Selected_compiler_path.Text = Read(KeyName);
+                    textBox_Selected_compiler_path.Text = Read();
 
-                    if (Read(KeyName) == null)
-                    { controll++; msgBox(war_2, "VC10"); }
+                    if (Read() == null)
+                    {
+                        controll++;
+                        MsgBox(War2, "VC10");
+                    }
                 }
 
-                if (comp == "VC10" && b == true)
+                if (comp == "VC10" && b)
                 {
                     b = true;
-                    textBox_Selected_compiler_path.Text = Read(KeyName);
+                    textBox_Selected_compiler_path.Text = Read();
 
-                    if (Read(KeyName) == null)
-                    { controll++; msgBox(war_1, "VC11"); }
+                    if (Read() == null)
+                    {
+                        controll++;
+                        MsgBox(War1, "VC11");
+                    }
                 }
 
-                if (comp == "VC11" && b == true)
+                if (comp == "VC11" && b)
                 {
                     b = false;
-                    Read(KeyName);
-                    textBox_Selected_compiler_path.Text = Read(KeyName);
+                    Read();
+                    textBox_Selected_compiler_path.Text = Read();
 
-                    if (Read(KeyName) == null)
-                    { controll++; msgBox(war_2, "VC10"); }
+                    if (Read() == null)
+                    {
+                        controll++;
+                        MsgBox(War2, "VC10");
+                    }
                 }
             }
         }
@@ -232,7 +277,7 @@ namespace WindowsFormsAppCompile
 
         private void textBox_Selected_install_path_TextChanged(object sender, EventArgs e)
         {
-            SaveSett("installPath",textBox_Selected_install_path.Text);
+            SaveSett("installPath", textBox_Selected_install_path.Text);
         }
 
         private void Compiler_Load(object sender, EventArgs e)
@@ -242,16 +287,6 @@ namespace WindowsFormsAppCompile
             comboBox_cpu_core.Text = Settings.Default["cpu"].ToString();
             textBox_Selected_install_path.Text = Settings.Default["installPath"].ToString();
         }
-
-        public string platform { get; set; }
-
-        public string Command { get; set; }
-
-        public string subKey { get; set; }
-
-        public string KeyName { get; set; }
-
-        public RegistryKey baseRegistryKey { get; set; }
 
         private void Compiler_FormClosing(object sender, FormClosingEventArgs e)
         {

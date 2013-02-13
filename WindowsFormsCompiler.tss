@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<ArrayOfArrayOfArrayOfString xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <ArrayOfArrayOfString>
+    <ArrayOfString>
+      <string>C:\Users\Ferenc\Desktop\Gitrepo\Compile_Configuration_GUI\Compiler_gui.cs</string>
+      <string>C:\Users\Ferenc\Desktop\Gitrepo\Compile_Configuration_GUI\Compiler_gui.cs</string>
+      <string>C:\Users\Ferenc\Desktop\Gitrepo\Compile_Configuration_GUI\Compiler_gui.Designer.cs</string>
+    </ArrayOfString>
+    <ArrayOfString>
+      <string>C:\Users\Ferenc\Desktop\Gitrepo\Compile_Configuration_GUI\Program.cs</string>
+    </ArrayOfString>
+    <ArrayOfString>
+      <string>Object Browser</string>
+    </ArrayOfString>
+  </ArrayOfArrayOfString>
+</ArrayOfArrayOfArrayOfString>
