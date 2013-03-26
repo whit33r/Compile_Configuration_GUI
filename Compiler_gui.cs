@@ -1,6 +1,8 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
+using System.Net;
 using System.Windows.Forms;
 using Microsoft.Win32;
 using WindowsForms_compiler.Properties;
@@ -9,17 +11,27 @@ namespace WindowsForms_compiler
 {
     public partial class Compiler : Form
     {
+        private const string War1 = "Visual Studio 10 is not installed on your computer.";
+        private const string War2 = "Visual Studio 11 is not installed on your computer.";
+        public static bool Available;
+        public static string RemoteVer;
         private readonly int count = Environment.ProcessorCount;
         private bool a, b;
         private string build, comp, comp_n;
         private int controll;
         private string core;
-        private const string War1 = "Visual Studio 10 is not installed on your computer.";
-        private const string War2 = "Visual Studio 11 is not installed on your computer.";
+        private bool updateYes;
 
         public Compiler()
         {
             InitializeComponent();
+
+            if (File.Exists("R2_Compiler_conf_gui_OLD.exe"))
+            {
+                File.Delete(@"R2_Compiler_conf_gui_OLD.exe");
+                MessageBox.Show("Update success.", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+
             const string target1 = @"src\";
             const string target2 = @"cmake\";
             if (Directory.Exists(target1) || (Directory.Exists(target2)))
@@ -44,6 +56,8 @@ namespace WindowsForms_compiler
                 comboBox_cpu_core.Items.Add(i);
             }
             comboBox_cpu_core.Text = Settings.Default["cpu"].ToString();
+
+            bw_update.RunWorkerAsync();
         }
 
         private void MsgBox(string msg, string cBox)
@@ -291,6 +305,45 @@ namespace WindowsForms_compiler
         private void Compiler_FormClosing(object sender, FormClosingEventArgs e)
         {
             Settings.Default.Save();
+        }
+
+        private void bw_update_DoWork(object sender, DoWorkEventArgs e)
+        {
+            try
+            {
+                var client = new WebClient();
+                Stream stream = client.OpenRead("http://dl.dropbox.com/u/7587303/Updates/R2_Compiler_conf_gui.txt");
+                var reader = new StreamReader(stream);
+                String content = reader.ReadToEnd();
+                Available = true;
+                RemoteVer = content;
+                if (content != "1.2.1")
+                {
+                    if (
+                        MessageBox.Show("New Version Available: V" + content + "\n" + "You want to download?",
+                                        "New Version", MessageBoxButtons.YesNo,
+                                        MessageBoxIcon.Asterisk, MessageBoxDefaultButton.Button1,
+                                        MessageBoxOptions.DefaultDesktopOnly) == DialogResult.Yes)
+                    {
+                        updateYes = true;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Available = false;
+                //MessageBox.Show("Can't connect the update server", "Warning", MessageBoxButtons.OK,
+                //                MessageBoxIcon.Warning);
+            }
+        }
+
+        private void bw_update_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            if (updateYes)
+            {
+                var update = new Update();
+                update.Show();
+            }
         }
     }
 }

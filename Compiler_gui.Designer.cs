@@ -45,6 +45,7 @@
             this.folderBrowser = new System.Windows.Forms.FolderBrowserDialog();
             this.groupBox_conf = new System.Windows.Forms.GroupBox();
             this.button_help = new System.Windows.Forms.Button();
+            this.bw_update = new System.ComponentModel.BackgroundWorker();
             this.groupBox_conf.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -55,9 +56,10 @@
             this.comboBox_com_vc.Items.AddRange(new object[] {
             "VC10",
             "VC11"});
-            this.comboBox_com_vc.Location = new System.Drawing.Point(89, 19);
+            this.comboBox_com_vc.Location = new System.Drawing.Point(119, 23);
+            this.comboBox_com_vc.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.comboBox_com_vc.Name = "comboBox_com_vc";
-            this.comboBox_com_vc.Size = new System.Drawing.Size(69, 21);
+            this.comboBox_com_vc.Size = new System.Drawing.Size(91, 24);
             this.comboBox_com_vc.TabIndex = 0;
             this.comboBox_com_vc.SelectedIndexChanged += new System.EventHandler(this.comboBox_com_vc_SelectedIndexChanged);
             // 
@@ -68,9 +70,10 @@
             this.comboBox_build_platform.Items.AddRange(new object[] {
             "win32",
             "win64"});
-            this.comboBox_build_platform.Location = new System.Drawing.Point(89, 46);
+            this.comboBox_build_platform.Location = new System.Drawing.Point(119, 57);
+            this.comboBox_build_platform.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.comboBox_build_platform.Name = "comboBox_build_platform";
-            this.comboBox_build_platform.Size = new System.Drawing.Size(69, 21);
+            this.comboBox_build_platform.Size = new System.Drawing.Size(91, 24);
             this.comboBox_build_platform.TabIndex = 1;
             this.comboBox_build_platform.SelectedIndexChanged += new System.EventHandler(this.comboBox_build_platform_SelectedIndexChanged);
             // 
@@ -78,78 +81,87 @@
             // 
             this.comboBox_cpu_core.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBox_cpu_core.FormattingEnabled = true;
-            this.comboBox_cpu_core.Location = new System.Drawing.Point(89, 73);
+            this.comboBox_cpu_core.Location = new System.Drawing.Point(119, 90);
+            this.comboBox_cpu_core.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.comboBox_cpu_core.Name = "comboBox_cpu_core";
-            this.comboBox_cpu_core.Size = new System.Drawing.Size(69, 21);
+            this.comboBox_cpu_core.Size = new System.Drawing.Size(91, 24);
             this.comboBox_cpu_core.TabIndex = 2;
             this.comboBox_cpu_core.SelectedIndexChanged += new System.EventHandler(this.comboBox_cpu_core_SelectedIndexChanged);
             // 
             // textBox_Selected_compiler_path
             // 
-            this.textBox_Selected_compiler_path.Location = new System.Drawing.Point(251, 22);
+            this.textBox_Selected_compiler_path.Location = new System.Drawing.Point(335, 27);
+            this.textBox_Selected_compiler_path.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.textBox_Selected_compiler_path.Name = "textBox_Selected_compiler_path";
-            this.textBox_Selected_compiler_path.Size = new System.Drawing.Size(254, 20);
+            this.textBox_Selected_compiler_path.Size = new System.Drawing.Size(337, 22);
             this.textBox_Selected_compiler_path.TabIndex = 3;
             // 
             // textBox_Selected_install_path
             // 
-            this.textBox_Selected_install_path.Location = new System.Drawing.Point(251, 50);
+            this.textBox_Selected_install_path.Location = new System.Drawing.Point(335, 62);
+            this.textBox_Selected_install_path.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.textBox_Selected_install_path.Name = "textBox_Selected_install_path";
-            this.textBox_Selected_install_path.Size = new System.Drawing.Size(254, 20);
+            this.textBox_Selected_install_path.Size = new System.Drawing.Size(337, 22);
             this.textBox_Selected_install_path.TabIndex = 4;
             this.textBox_Selected_install_path.TextChanged += new System.EventHandler(this.textBox_Selected_install_path_TextChanged);
             // 
             // label_comp
             // 
             this.label_comp.AutoSize = true;
-            this.label_comp.Location = new System.Drawing.Point(33, 22);
+            this.label_comp.Location = new System.Drawing.Point(44, 27);
+            this.label_comp.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label_comp.Name = "label_comp";
-            this.label_comp.Size = new System.Drawing.Size(50, 13);
+            this.label_comp.Size = new System.Drawing.Size(67, 17);
             this.label_comp.TabIndex = 5;
             this.label_comp.Text = "Compiler:";
             // 
             // label_plat
             // 
             this.label_plat.AutoSize = true;
-            this.label_plat.Location = new System.Drawing.Point(10, 50);
+            this.label_plat.Location = new System.Drawing.Point(13, 62);
+            this.label_plat.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label_plat.Name = "label_plat";
-            this.label_plat.Size = new System.Drawing.Size(73, 13);
+            this.label_plat.Size = new System.Drawing.Size(98, 17);
             this.label_plat.TabIndex = 6;
             this.label_plat.Text = "Build platform:";
             // 
             // label_cpu
             // 
             this.label_cpu.AutoSize = true;
-            this.label_cpu.Location = new System.Drawing.Point(27, 76);
+            this.label_cpu.Location = new System.Drawing.Point(36, 94);
+            this.label_cpu.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label_cpu.Name = "label_cpu";
-            this.label_cpu.Size = new System.Drawing.Size(56, 13);
+            this.label_cpu.Size = new System.Drawing.Size(72, 17);
             this.label_cpu.TabIndex = 7;
             this.label_cpu.Text = "CPU core:";
             // 
             // label_compPath
             // 
             this.label_compPath.AutoSize = true;
-            this.label_compPath.Location = new System.Drawing.Point(171, 25);
+            this.label_compPath.Location = new System.Drawing.Point(228, 31);
+            this.label_compPath.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label_compPath.Name = "label_compPath";
-            this.label_compPath.Size = new System.Drawing.Size(74, 13);
+            this.label_compPath.Size = new System.Drawing.Size(99, 17);
             this.label_compPath.TabIndex = 8;
             this.label_compPath.Text = "Compiler path:";
             // 
             // label_installPath
             // 
             this.label_installPath.AutoSize = true;
-            this.label_installPath.Location = new System.Drawing.Point(184, 53);
+            this.label_installPath.Location = new System.Drawing.Point(245, 65);
+            this.label_installPath.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label_installPath.Name = "label_installPath";
-            this.label_installPath.Size = new System.Drawing.Size(61, 13);
+            this.label_installPath.Size = new System.Drawing.Size(80, 17);
             this.label_installPath.TabIndex = 9;
             this.label_installPath.Text = "Install path:";
             // 
             // button_compile
             // 
             this.button_compile.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.button_compile.Location = new System.Drawing.Point(251, 85);
+            this.button_compile.Location = new System.Drawing.Point(335, 105);
+            this.button_compile.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.button_compile.Name = "button_compile";
-            this.button_compile.Size = new System.Drawing.Size(83, 23);
+            this.button_compile.Size = new System.Drawing.Size(111, 28);
             this.button_compile.TabIndex = 7;
             this.button_compile.Text = "Start Compile";
             this.button_compile.UseVisualStyleBackColor = true;
@@ -158,9 +170,10 @@
             // button_change_one
             // 
             this.button_change_one.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.button_change_one.Location = new System.Drawing.Point(511, 19);
+            this.button_change_one.Location = new System.Drawing.Point(681, 23);
+            this.button_change_one.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.button_change_one.Name = "button_change_one";
-            this.button_change_one.Size = new System.Drawing.Size(25, 23);
+            this.button_change_one.Size = new System.Drawing.Size(33, 28);
             this.button_change_one.TabIndex = 5;
             this.button_change_one.Text = "...";
             this.button_change_one.UseVisualStyleBackColor = true;
@@ -168,9 +181,10 @@
             // 
             // button_change_two
             // 
-            this.button_change_two.Location = new System.Drawing.Point(511, 48);
+            this.button_change_two.Location = new System.Drawing.Point(681, 59);
+            this.button_change_two.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.button_change_two.Name = "button_change_two";
-            this.button_change_two.Size = new System.Drawing.Size(25, 23);
+            this.button_change_two.Size = new System.Drawing.Size(33, 28);
             this.button_change_two.TabIndex = 6;
             this.button_change_two.Text = "...";
             this.button_change_two.UseVisualStyleBackColor = true;
@@ -196,9 +210,11 @@
             this.groupBox_conf.Controls.Add(this.label_comp);
             this.groupBox_conf.Controls.Add(this.label_cpu);
             this.groupBox_conf.Controls.Add(this.label_plat);
-            this.groupBox_conf.Location = new System.Drawing.Point(12, 6);
+            this.groupBox_conf.Location = new System.Drawing.Point(16, 7);
+            this.groupBox_conf.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.groupBox_conf.Name = "groupBox_conf";
-            this.groupBox_conf.Size = new System.Drawing.Size(549, 115);
+            this.groupBox_conf.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBox_conf.Size = new System.Drawing.Size(732, 142);
             this.groupBox_conf.TabIndex = 13;
             this.groupBox_conf.TabStop = false;
             this.groupBox_conf.Text = "Configuration";
@@ -206,23 +222,30 @@
             // button_help
             // 
             this.button_help.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.button_help.Location = new System.Drawing.Point(478, 86);
+            this.button_help.Location = new System.Drawing.Point(637, 106);
+            this.button_help.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.button_help.Name = "button_help";
-            this.button_help.Size = new System.Drawing.Size(58, 21);
+            this.button_help.Size = new System.Drawing.Size(77, 26);
             this.button_help.TabIndex = 10;
             this.button_help.TabStop = false;
             this.button_help.Text = "About...";
             this.button_help.UseVisualStyleBackColor = true;
             this.button_help.Click += new System.EventHandler(this.button_help_Click);
             // 
+            // bw_update
+            // 
+            this.bw_update.DoWork += new System.ComponentModel.DoWorkEventHandler(this.bw_update_DoWork);
+            this.bw_update.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.bw_update_RunWorkerCompleted);
+            // 
             // Compiler
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(571, 129);
+            this.ClientSize = new System.Drawing.Size(761, 159);
             this.Controls.Add(this.groupBox_conf);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.MaximizeBox = false;
             this.Name = "Compiler";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
@@ -253,6 +276,7 @@
         private System.Windows.Forms.FolderBrowserDialog folderBrowser;
         private System.Windows.Forms.GroupBox groupBox_conf;
         private System.Windows.Forms.Button button_help;
+        private System.ComponentModel.BackgroundWorker bw_update;
     }
 }
 
