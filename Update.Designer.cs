@@ -36,6 +36,7 @@
             this.gb_status = new System.Windows.Forms.GroupBox();
             this.lbl_status = new System.Windows.Forms.Label();
             this.btn_Cancel = new System.Windows.Forms.Button();
+            this.lbl_speed = new System.Windows.Forms.Label();
             this.gb_status.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -70,6 +71,7 @@
             // 
             // gb_status
             // 
+            this.gb_status.Controls.Add(this.lbl_speed);
             this.gb_status.Controls.Add(this.lbl_status);
             this.gb_status.Controls.Add(this.pb_down);
             this.gb_status.Controls.Add(this.lbl_downByte);
@@ -100,6 +102,15 @@
             this.btn_Cancel.UseVisualStyleBackColor = true;
             this.btn_Cancel.Click += new System.EventHandler(this.btn_cancel_Click);
             // 
+            // lbl_speed
+            // 
+            this.lbl_speed.AutoSize = true;
+            this.lbl_speed.Location = new System.Drawing.Point(191, 75);
+            this.lbl_speed.Name = "lbl_speed";
+            this.lbl_speed.Size = new System.Drawing.Size(80, 17);
+            this.lbl_speed.TabIndex = 4;
+            this.lbl_speed.Text = "Speed: N/A";
+            // 
             // Update
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -127,5 +138,6 @@
         private System.Windows.Forms.GroupBox gb_status;
         private System.Windows.Forms.Label lbl_status;
         private System.Windows.Forms.Button btn_Cancel;
+        private System.Windows.Forms.Label lbl_speed;
     }
 }

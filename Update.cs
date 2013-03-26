@@ -16,9 +16,28 @@ namespace WindowsForms_compiler
             InitializeComponent();
         }
 
+        Stopwatch sw = new Stopwatch();
+
         private void Update_Shown(object sender, EventArgs e)
         {
             bw_updater.RunWorkerAsync();
+        }
+
+        private void DownloadUpdate(string URL, string Save)
+        {
+            lbl_status.Text = "Status: Connecting";
+            Thread.Sleep(500);
+            string exePath = AppDomain.CurrentDomain.FriendlyName;
+            File.Move(exePath, @"R2_Compiler_conf_gui_OLD.exe");
+            File.SetAttributes("R2_Compiler_conf_gui_OLD.exe", FileAttributes.Hidden);
+
+            var client = new WebClient();
+            client.DownloadProgressChanged += client_DownloadProgressChanged;
+            client.DownloadFileCompleted += client_DownloadFileCompleted;
+            lbl_status.Text = "Status: Downloading";
+            client.DownloadFileAsync(
+                new Uri(URL),Save);
+            sw.Start();
         }
 
         private void client_DownloadProgressChanged(object sender, DownloadProgressChangedEventArgs e)
@@ -27,6 +46,7 @@ namespace WindowsForms_compiler
             double totalBytes = double.Parse(e.TotalBytesToReceive.ToString());
             double percentage = bytesIn/totalBytes*100;
             lbl_downByte.Text = e.BytesReceived / 1024 + " / " + e.TotalBytesToReceive / 1024 + " Kb";
+            lbl_speed.Text = "Speed: " + (bytesIn / 1024 / sw.Elapsed.TotalSeconds).ToString("0.00") + " Kb/s";
             pb_down.Value = int.Parse(Math.Truncate(percentage).ToString(CultureInfo.InvariantCulture));
             lbl_Perecent.Text = int.Parse(Math.Truncate(percentage).ToString(CultureInfo.InvariantCulture)) + "%";
         }
@@ -41,20 +61,7 @@ namespace WindowsForms_compiler
 
         private void bw_updater_DoWork(object sender, DoWorkEventArgs e)
         {
-            lbl_status.Text = "Status: Connecting";
-            Thread.Sleep(500);
-            string exePath = AppDomain.CurrentDomain.FriendlyName;
-            File.Move(exePath, @"R2_Compiler_conf_gui_OLD.exe");
-            File.SetAttributes("R2_Compiler_conf_gui_OLD.exe", FileAttributes.Hidden);
-
-            var client = new WebClient();
-            client.DownloadProgressChanged += client_DownloadProgressChanged;
-            client.DownloadFileCompleted += client_DownloadFileCompleted;
-            lbl_status.Text = "Status: Downloading";
-            client.DownloadFileAsync(
-                new Uri("http://dl.dropbox.com/u/7587303/Updates/R2_Compiler_conf_gui_update.exe"),
-                "R2_Compiler_conf_gui.exe");
-            
+            DownloadUpdate("http://dl.dropbox.com/u/7587303/Updates/R2_Compiler_conf_gui_update.exe", "R2_Compiler_conf_gui.exe");
         }
 
         private void btn_cancel_Click(object sender, EventArgs e)
