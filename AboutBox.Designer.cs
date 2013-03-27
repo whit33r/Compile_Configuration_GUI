@@ -119,7 +119,7 @@
             this.lbl_LocalV.Name = "lbl_LocalV";
             this.lbl_LocalV.Size = new System.Drawing.Size(40, 18);
             this.lbl_LocalV.TabIndex = 9;
-            this.lbl_LocalV.Text = "1.2.3";
+            this.lbl_LocalV.Text = "1.2.4";
             // 
             // pb_Donate
             // 

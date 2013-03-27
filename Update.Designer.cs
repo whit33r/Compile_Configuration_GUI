@@ -107,7 +107,10 @@
             this.ClientSize = new System.Drawing.Size(468, 134);
             this.Controls.Add(this.gb_status);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "Update";
+            this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Updater";
             this.Shown += new System.EventHandler(this.Update_Shown);

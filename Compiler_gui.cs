@@ -14,9 +14,9 @@ namespace WindowsForms_compiler
         private const string War1 = "Visual Studio 10 is not installed on your computer.";
         private const string War2 = "Visual Studio 11 is not installed on your computer.";
         public static bool Available;
-        public static string RemoteVer;
+        public static string RemoteVer, currVer = "1.2.4";
         private readonly int count = Environment.ProcessorCount;
-        private bool a, b;
+        private bool a, b, update = false;
         private string build, comp, comp_n;
         private int controll;
         private string core;
@@ -29,24 +29,30 @@ namespace WindowsForms_compiler
             if (File.Exists("R2_Compiler_conf_gui_OLD.exe"))
             {
                 File.Delete(@"R2_Compiler_conf_gui_OLD.exe");
-                MessageBox.Show("Update success.", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                var uC = new Update_Completed();
+                uC.Show();
+                update = true;
             }
 
             const string target1 = @"src\";
             const string target2 = @"cmake\";
-            if (Directory.Exists(target1) || (Directory.Exists(target2)))
+            
+            if (!update)
             {
-                const string target3 = @"src\bindings\ScriptDev2\sql_mr\";
-                const string target4 = @"src\bindings\ScriptDev2\scripts";
-                if (!Directory.Exists(target3) || (!Directory.Exists(target4)))
+                if (Directory.Exists(target1) || (Directory.Exists(target2)))
                 {
-                    MessageBox.Show("\\src\\bindings\\ScriptDev2 Folder is empty.", "Warning", MessageBoxButtons.OK,
-                                    MessageBoxIcon.Warning);
+                    const string target3 = @"src\bindings\ScriptDev2\sql_mr\";
+                    const string target4 = @"src\bindings\ScriptDev2\scripts";
+                    if (!Directory.Exists(target3) || (!Directory.Exists(target4)))
+                    {
+                        MessageBox.Show("\\src\\bindings\\ScriptDev2 Folder is empty.", "Warning", MessageBoxButtons.OK,
+                                        MessageBoxIcon.Warning);
+                    }
                 }
-            }
-            else
-            {
-                MessageBox.Show("Can't find MaNGOS files.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                else
+                {
+                    MessageBox.Show("Can't find MaNGOS files.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
             }
 
             b = IntPtr.Size != 8;
@@ -317,7 +323,7 @@ namespace WindowsForms_compiler
                 String content = reader.ReadToEnd();
                 Available = true;
                 RemoteVer = content;
-                if (content != "1.2.3")
+                if (content != currVer)
                 {
                     if (
                         MessageBox.Show("New Version Available: V" + content + "\n" + "You want to download?",
@@ -329,7 +335,7 @@ namespace WindowsForms_compiler
                     }
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 Available = false;
             }
