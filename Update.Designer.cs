@@ -34,9 +34,8 @@
             this.lbl_downByte = new System.Windows.Forms.Label();
             this.bw_updater = new System.ComponentModel.BackgroundWorker();
             this.gb_status = new System.Windows.Forms.GroupBox();
-            this.lbl_status = new System.Windows.Forms.Label();
-            this.btn_Cancel = new System.Windows.Forms.Button();
             this.lbl_speed = new System.Windows.Forms.Label();
+            this.lbl_status = new System.Windows.Forms.Label();
             this.gb_status.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -83,25 +82,6 @@
             this.gb_status.TabStop = false;
             this.gb_status.Text = "Update Status";
             // 
-            // lbl_status
-            // 
-            this.lbl_status.AutoSize = true;
-            this.lbl_status.Location = new System.Drawing.Point(22, 75);
-            this.lbl_status.Name = "lbl_status";
-            this.lbl_status.Size = new System.Drawing.Size(52, 17);
-            this.lbl_status.TabIndex = 3;
-            this.lbl_status.Text = "Status:";
-            // 
-            // btn_Cancel
-            // 
-            this.btn_Cancel.Location = new System.Drawing.Point(360, 128);
-            this.btn_Cancel.Name = "btn_Cancel";
-            this.btn_Cancel.Size = new System.Drawing.Size(96, 29);
-            this.btn_Cancel.TabIndex = 4;
-            this.btn_Cancel.Text = "Cancel";
-            this.btn_Cancel.UseVisualStyleBackColor = true;
-            this.btn_Cancel.Click += new System.EventHandler(this.btn_cancel_Click);
-            // 
             // lbl_speed
             // 
             this.lbl_speed.AutoSize = true;
@@ -111,12 +91,20 @@
             this.lbl_speed.TabIndex = 4;
             this.lbl_speed.Text = "Speed: N/A";
             // 
+            // lbl_status
+            // 
+            this.lbl_status.AutoSize = true;
+            this.lbl_status.Location = new System.Drawing.Point(22, 75);
+            this.lbl_status.Name = "lbl_status";
+            this.lbl_status.Size = new System.Drawing.Size(52, 17);
+            this.lbl_status.TabIndex = 3;
+            this.lbl_status.Text = "Status:";
+            // 
             // Update
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(468, 168);
-            this.Controls.Add(this.btn_Cancel);
+            this.ClientSize = new System.Drawing.Size(468, 134);
             this.Controls.Add(this.gb_status);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Update";
@@ -137,7 +125,6 @@
         private System.ComponentModel.BackgroundWorker bw_updater;
         private System.Windows.Forms.GroupBox gb_status;
         private System.Windows.Forms.Label lbl_status;
-        private System.Windows.Forms.Button btn_Cancel;
         private System.Windows.Forms.Label lbl_speed;
     }
 }

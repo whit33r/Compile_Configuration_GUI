@@ -317,7 +317,7 @@ namespace WindowsForms_compiler
                 String content = reader.ReadToEnd();
                 Available = true;
                 RemoteVer = content;
-                if (content != "1.2.2")
+                if (content != "1.2.3")
                 {
                     if (
                         MessageBox.Show("New Version Available: V" + content + "\n" + "You want to download?",
@@ -332,8 +332,6 @@ namespace WindowsForms_compiler
             catch (Exception ex)
             {
                 Available = false;
-                //MessageBox.Show("Can't connect the update server", "Warning", MessageBoxButtons.OK,
-                //                MessageBoxIcon.Warning);
             }
         }
 

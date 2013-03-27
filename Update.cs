@@ -26,7 +26,7 @@ namespace WindowsForms_compiler
         private void DownloadUpdate(string URL, string Save)
         {
             lbl_status.Text = "Status: Connecting";
-            Thread.Sleep(500);
+            Thread.Sleep(100);
             string exePath = AppDomain.CurrentDomain.FriendlyName;
             File.Move(exePath, @"R2_Compiler_conf_gui_OLD.exe");
             File.SetAttributes("R2_Compiler_conf_gui_OLD.exe", FileAttributes.Hidden);
@@ -62,14 +62,6 @@ namespace WindowsForms_compiler
         private void bw_updater_DoWork(object sender, DoWorkEventArgs e)
         {
             DownloadUpdate("http://dl.dropbox.com/u/7587303/Updates/R2_Compiler_conf_gui_update.exe", "R2_Compiler_conf_gui.exe");
-        }
-
-        private void btn_cancel_Click(object sender, EventArgs e)
-        {
-            string exePath = AppDomain.CurrentDomain.FriendlyName;
-            File.Delete(@"R2_Compiler_conf_gui.exe");
-            File.Move(exePath, @"R2_Compiler_conf_gui.exe");
-            Application.Exit();
         }
     }
 }
