@@ -11,12 +11,13 @@ namespace WindowsForms_compiler
 {
     public partial class Compiler : Form
     {
+        string[] args = Environment.GetCommandLineArgs();
         private const string War1 = "Visual Studio 10 is not installed on your computer.";
         private const string War2 = "Visual Studio 11 is not installed on your computer.";
         public static bool Available;
         public static string RemoteVer, currVer = "1.2.4";
         private readonly int count = Environment.ProcessorCount;
-        private bool a, b, update = false;
+        private bool a, b, update = false, allow = false;
         private string build, comp, comp_n;
         private int controll;
         private string core;
@@ -25,6 +26,8 @@ namespace WindowsForms_compiler
         public Compiler()
         {
             InitializeComponent();
+
+            LaunchOptions();
 
             if (File.Exists("R2_Compiler_conf_gui_OLD.exe"))
             {
@@ -37,7 +40,7 @@ namespace WindowsForms_compiler
             const string target1 = @"src\";
             const string target2 = @"cmake\";
             
-            if (!update)
+            if (!update && !allow)
             {
                 if (Directory.Exists(target1) || (Directory.Exists(target2)))
                 {
@@ -72,6 +75,23 @@ namespace WindowsForms_compiler
             comboBox_com_vc.Items.Clear();
             comboBox_com_vc.Items.Add(cBox);
             comboBox_com_vc.Text = cBox;
+        }
+
+        private void LaunchOptions()
+        {
+            // Silent mode
+            //Example: -vc10 -win32 -2 -C:/MaNGOS
+
+            try
+            {
+                if (args[1] != "" && args[2] != "" && args[3] != "" && args[4] != "")
+                {
+                    allow = true;
+                    comboBox_com_vc.Text = args[3];
+                }
+            }
+            catch (Exception)
+            { }
         }
 
         private void PlatformChange()
@@ -169,7 +189,7 @@ namespace WindowsForms_compiler
             }
         }
 
-        private void button_compile_Click(object sender, EventArgs e)
+        private void StartCompile()
         {
             const string cflag = "/DWIN32 /D_WINDOWS /W3 /Zm1000 /EHsc /GR";
 
@@ -202,21 +222,7 @@ namespace WindowsForms_compiler
             }
         }
 
-        private void button_change_two_Click(object sender, EventArgs e)
-        {
-            Dialog(true);
-        }
 
-        private void button_change_one_Click(object sender, EventArgs e)
-        {
-            Dialog(false);
-        }
-
-        private void button_help_Click(object sender, EventArgs e)
-        {
-            var aboutBox = new AboutBox();
-            aboutBox.Show();
-        }
 
         private void comboBox_com_vc_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -238,7 +244,7 @@ namespace WindowsForms_compiler
                     }
                 }
 
-                if (comp == "VC11" && b == false)
+                if (comp == "VC11" && b == false && controll < 2)
                 {
                     a = false;
                     textBox_Selected_compiler_path.Text = Read();
@@ -262,7 +268,7 @@ namespace WindowsForms_compiler
                     }
                 }
 
-                if (comp == "VC11" && b)
+                if (comp == "VC11" && b && controll < 2)
                 {
                     b = false;
                     Read();
@@ -275,11 +281,16 @@ namespace WindowsForms_compiler
                     }
                 }
             }
+            else
+            {
+                comboBox_com_vc.Items.Clear();
+            }
         }
 
         private void comboBox_cpu_core_SelectedIndexChanged(object sender, EventArgs e)
         {
             core = comboBox_cpu_core.Items[comboBox_cpu_core.SelectedIndex].ToString();
+            if (!allow)
             SaveSett("cpu", core);
         }
 
@@ -297,6 +308,7 @@ namespace WindowsForms_compiler
 
         private void textBox_Selected_install_path_TextChanged(object sender, EventArgs e)
         {
+            if(allow)
             SaveSett("installPath", textBox_Selected_install_path.Text);
         }
 
@@ -306,6 +318,14 @@ namespace WindowsForms_compiler
             comboBox_build_platform.Text = Settings.Default["platform"].ToString();
             comboBox_cpu_core.Text = Settings.Default["cpu"].ToString();
             textBox_Selected_install_path.Text = Settings.Default["installPath"].ToString();
+
+            if (allow)
+            {
+                comboBox_com_vc.Text = args[1].Remove(0,1);
+                comboBox_build_platform.Text = args[2].Remove(0,1);
+                comboBox_cpu_core.Text = args[3].Remove(0,1);
+                textBox_Selected_install_path.Text = args[4].Remove(0,1);
+            }
         }
 
         private void Compiler_FormClosing(object sender, FormClosingEventArgs e)
@@ -348,6 +368,36 @@ namespace WindowsForms_compiler
                 var update = new Update();
                 update.Show();
             }
+        }
+
+
+        private void Compiler_Shown(object sender, EventArgs e)
+        {
+            if (allow)
+            {
+                Hide();
+                StartCompile();
+            }
+        }
+        private void button_compile_Click(object sender, EventArgs e)
+        {
+            StartCompile();
+        }
+
+        private void button_change_two_Click(object sender, EventArgs e)
+        {
+            Dialog(true);
+        }
+
+        private void button_change_one_Click(object sender, EventArgs e)
+        {
+            Dialog(false);
+        }
+
+        private void button_help_Click(object sender, EventArgs e)
+        {
+            var aboutBox = new AboutBox();
+            aboutBox.Show();
         }
     }
 }

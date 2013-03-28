@@ -57,7 +57,7 @@
             "VC10",
             "VC11"});
             this.comboBox_com_vc.Location = new System.Drawing.Point(119, 23);
-            this.comboBox_com_vc.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.comboBox_com_vc.Margin = new System.Windows.Forms.Padding(4);
             this.comboBox_com_vc.Name = "comboBox_com_vc";
             this.comboBox_com_vc.Size = new System.Drawing.Size(91, 24);
             this.comboBox_com_vc.TabIndex = 0;
@@ -71,7 +71,7 @@
             "win32",
             "win64"});
             this.comboBox_build_platform.Location = new System.Drawing.Point(119, 57);
-            this.comboBox_build_platform.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.comboBox_build_platform.Margin = new System.Windows.Forms.Padding(4);
             this.comboBox_build_platform.Name = "comboBox_build_platform";
             this.comboBox_build_platform.Size = new System.Drawing.Size(91, 24);
             this.comboBox_build_platform.TabIndex = 1;
@@ -82,7 +82,7 @@
             this.comboBox_cpu_core.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBox_cpu_core.FormattingEnabled = true;
             this.comboBox_cpu_core.Location = new System.Drawing.Point(119, 90);
-            this.comboBox_cpu_core.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.comboBox_cpu_core.Margin = new System.Windows.Forms.Padding(4);
             this.comboBox_cpu_core.Name = "comboBox_cpu_core";
             this.comboBox_cpu_core.Size = new System.Drawing.Size(91, 24);
             this.comboBox_cpu_core.TabIndex = 2;
@@ -91,7 +91,7 @@
             // textBox_Selected_compiler_path
             // 
             this.textBox_Selected_compiler_path.Location = new System.Drawing.Point(335, 27);
-            this.textBox_Selected_compiler_path.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.textBox_Selected_compiler_path.Margin = new System.Windows.Forms.Padding(4);
             this.textBox_Selected_compiler_path.Name = "textBox_Selected_compiler_path";
             this.textBox_Selected_compiler_path.Size = new System.Drawing.Size(337, 22);
             this.textBox_Selected_compiler_path.TabIndex = 3;
@@ -99,7 +99,7 @@
             // textBox_Selected_install_path
             // 
             this.textBox_Selected_install_path.Location = new System.Drawing.Point(335, 62);
-            this.textBox_Selected_install_path.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.textBox_Selected_install_path.Margin = new System.Windows.Forms.Padding(4);
             this.textBox_Selected_install_path.Name = "textBox_Selected_install_path";
             this.textBox_Selected_install_path.Size = new System.Drawing.Size(337, 22);
             this.textBox_Selected_install_path.TabIndex = 4;
@@ -159,7 +159,7 @@
             // 
             this.button_compile.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.button_compile.Location = new System.Drawing.Point(335, 105);
-            this.button_compile.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.button_compile.Margin = new System.Windows.Forms.Padding(4);
             this.button_compile.Name = "button_compile";
             this.button_compile.Size = new System.Drawing.Size(111, 28);
             this.button_compile.TabIndex = 7;
@@ -171,7 +171,7 @@
             // 
             this.button_change_one.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.button_change_one.Location = new System.Drawing.Point(681, 23);
-            this.button_change_one.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.button_change_one.Margin = new System.Windows.Forms.Padding(4);
             this.button_change_one.Name = "button_change_one";
             this.button_change_one.Size = new System.Drawing.Size(33, 28);
             this.button_change_one.TabIndex = 5;
@@ -182,7 +182,7 @@
             // button_change_two
             // 
             this.button_change_two.Location = new System.Drawing.Point(681, 59);
-            this.button_change_two.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.button_change_two.Margin = new System.Windows.Forms.Padding(4);
             this.button_change_two.Name = "button_change_two";
             this.button_change_two.Size = new System.Drawing.Size(33, 28);
             this.button_change_two.TabIndex = 6;
@@ -211,9 +211,9 @@
             this.groupBox_conf.Controls.Add(this.label_cpu);
             this.groupBox_conf.Controls.Add(this.label_plat);
             this.groupBox_conf.Location = new System.Drawing.Point(16, 7);
-            this.groupBox_conf.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBox_conf.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox_conf.Name = "groupBox_conf";
-            this.groupBox_conf.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBox_conf.Padding = new System.Windows.Forms.Padding(4);
             this.groupBox_conf.Size = new System.Drawing.Size(732, 142);
             this.groupBox_conf.TabIndex = 13;
             this.groupBox_conf.TabStop = false;
@@ -223,7 +223,7 @@
             // 
             this.button_help.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.button_help.Location = new System.Drawing.Point(637, 106);
-            this.button_help.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.button_help.Margin = new System.Windows.Forms.Padding(4);
             this.button_help.Name = "button_help";
             this.button_help.Size = new System.Drawing.Size(77, 26);
             this.button_help.TabIndex = 10;
@@ -245,13 +245,14 @@
             this.Controls.Add(this.groupBox_conf);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.MaximizeBox = false;
             this.Name = "Compiler";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "R2 Compiler Configuration GUI";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Compiler_FormClosing);
             this.Load += new System.EventHandler(this.Compiler_Load);
+            this.Shown += new System.EventHandler(this.Compiler_Shown);
             this.groupBox_conf.ResumeLayout(false);
             this.groupBox_conf.PerformLayout();
             this.ResumeLayout(false);

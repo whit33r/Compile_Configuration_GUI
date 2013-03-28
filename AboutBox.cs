@@ -15,6 +15,7 @@ namespace WindowsForms_compiler
         {
             lbl_oneDesc.Text = "Created by Whit33r \nSpecial thanks: ConanHUN";
             lbl_twoDesc.Text = "If you liked it and would like to see\nmore like this software, please donate.";
+            lbl_LocalV.Text = Compiler.currVer;
            
             if (Compiler.Available)
             {

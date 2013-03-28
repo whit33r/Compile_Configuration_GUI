@@ -1,2 +1,24 @@
 <?xml version="1.0"?>
-<ArrayOfArrayOfArrayOfString xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" />
+<ArrayOfArrayOfArrayOfString xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <ArrayOfArrayOfString>
+    <ArrayOfString>
+      <string>D:\Github Repos\Compile_Configuration_GUI\Update.cs</string>
+    </ArrayOfString>
+    <ArrayOfString>
+      <string>D:\Github Repos\Compile_Configuration_GUI\AboutBox.cs</string>
+      <string>D:\Github Repos\Compile_Configuration_GUI\AboutBox.cs</string>
+    </ArrayOfString>
+    <ArrayOfString>
+      <string>D:\Github Repos\Compile_Configuration_GUI\Update_Completed.cs</string>
+      <string>D:\Github Repos\Compile_Configuration_GUI\Update_Completed.cs</string>
+      <string>D:\Github Repos\Compile_Configuration_GUI\Update_Completed.Designer.cs</string>
+    </ArrayOfString>
+    <ArrayOfString>
+      <string>D:\Github Repos\Compile_Configuration_GUI\Compiler_gui.cs</string>
+      <string>D:\Github Repos\Compile_Configuration_GUI\Compiler_gui.cs</string>
+    </ArrayOfString>
+    <ArrayOfString>
+      <string>D:\Github Repos\Compile_Configuration_GUI\Properties\Resources.resx</string>
+    </ArrayOfString>
+  </ArrayOfArrayOfString>
+</ArrayOfArrayOfArrayOfString>
